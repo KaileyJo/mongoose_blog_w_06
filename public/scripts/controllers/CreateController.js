@@ -4,7 +4,7 @@ myApp.controller('CreateController', ['$scope', '$http', function($scope, $http)
     $scope.title = '';
     $scope.author = '';
     $scope.date = '';
-    $scope.content = '';
+    $scope.content = 'Enter Post...';
 
     $scope.postBlog = function () {
         var blogPost = {

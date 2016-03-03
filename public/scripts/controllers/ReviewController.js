@@ -1,7 +1,6 @@
 myApp.controller('ReviewController', ['$scope', '$http', function($scope, $http) {
     console.log('ReviewController');
 
-    //$scope.postUpdate;
     $scope.currentID;
 
     $scope.title = '';
@@ -32,7 +31,7 @@ myApp.controller('ReviewController', ['$scope', '$http', function($scope, $http)
     };
 
     $scope.update = function(id) {
-        //$scope.postUpdate = true;
+
         $scope.currentID = id;
 
     };
@@ -47,7 +46,7 @@ myApp.controller('ReviewController', ['$scope', '$http', function($scope, $http)
         $http.put('/blogPost/' + id, data).then(function(response){
 
             getData();
-            $scope.postUpdate = false;
+            $scope.currentID = 0;
         });
     };
 }]);

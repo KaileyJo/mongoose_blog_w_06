@@ -1,7 +1,8 @@
 myApp.controller('ReviewController', ['$scope', '$http', function($scope, $http) {
     console.log('ReviewController');
 
-    $scope.postUpdate;
+    //$scope.postUpdate;
+    $scope.currentID;
 
     $scope.title = '';
     $scope.author = '';
@@ -31,7 +32,8 @@ myApp.controller('ReviewController', ['$scope', '$http', function($scope, $http)
     };
 
     $scope.update = function(id) {
-        $scope.postUpdate = true;
+        //$scope.postUpdate = true;
+        $scope.currentID = id;
 
     };
 

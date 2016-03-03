@@ -10,7 +10,7 @@ app.use(bodyParser.urlencoded({extended: true}));
 
 mongoose.connect('mongodb://localhost/blog');
 mongoose.model(
-    'Blog',
+    'BlogPost',
     new Schema({
             "title": String,
             "date": String,
@@ -22,11 +22,11 @@ mongoose.model(
         }
     ));
 
-var Blog = mongoose.model('Blog');
+var BlogPost = mongoose.model('BlogPost');
 
 app.get('/blogPost', function(req, res) {
     console.log('here');
-    Blog.find({}, function(err, data) {
+    BlogPost.find({}, function(err, data) {
         if(err) {
             console.log('ERR: ', err);
         }
@@ -38,19 +38,19 @@ app.get('/blogPost', function(req, res) {
 });
 
 app.post('/blogPost', function(req, res) {
-    var addedPerson = new Person({
+    var addedPost = new BlogPost({
         "title": req.body.title,
         "date": req.body.date,
         "author": req.body.author,
         "content": req.body.content
     });
 
-    addedPerson.save(function(err, data) {
+    addedPost.save(function(err, data) {
         if(err) {
             console.log('ERR: ', err);
         }
 
-        Person.find({}, function(err, data) {
+        BlogPost.find({}, function(err, data) {
             if(err) {
                 console.log('ERR: ', err);
             }
@@ -62,8 +62,8 @@ app.post('/blogPost', function(req, res) {
 
 });
 
-app.delete('/person/:id', function(req, res) {
-    Person.findByIdAndRemove({"_id" : req.params.id}, function(err, data) {
+app.delete('/blogPost/:id', function(req, res) {
+    BlogPost.findByIdAndRemove({_id : req.params.id}, function(err, data) {
         if(err) {
             console.log('ERR: ', err);
         }
@@ -72,12 +72,22 @@ app.delete('/person/:id', function(req, res) {
     });
 });
 
-app.put('/person/:id', function(req, res){
-    var newName = req.body.name;
-    Person.findByIdAndUpdate(
+app.put('/blogPost/:id', function(req, res){
+    var editPost = {
+        title: req.body.title,
+        date: req.body.date,
+        author: req.body.author,
+        content: req.body.content
+    };
+    BlogPost.findByIdAndUpdate(
         {_id: req.params.id},
         {
-            $set: {name: newName}
+            $set: {
+                title: editPost.title,
+                date: editPost.date,
+                author: editPost.author,
+                content: editPost.content
+            }
         },
         function(err, data) {
             if(err) {
